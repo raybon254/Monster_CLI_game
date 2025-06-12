@@ -75,7 +75,7 @@ def battle():
     print(f"{p2_team} enters the arena!\n")
 
     # Player 1 attack
-    print(f"What will {p1_team} do?")
+    print(f"\nWhat will {p1_team} do?")
     attacks()
     pick = input("Choose an attack (1-4): ")
     
@@ -103,7 +103,7 @@ def battle():
 
 
     # Player 2 attack
-    print(f"What will {p2_team} do?")
+    print(f"\nWhat will {p2_team} do?")
     attacks()
     pick = input("Choose an attack (1-4): ")
     
@@ -134,4 +134,9 @@ def battle():
     print(f"{val_p1.name} VS {val_p2.name}")
     print(f"{p1_team} VS {p2_team}")
     print("Battle completed (damage calculations not yet implemented).")
+    # based on level increment [per win] and points deductions 
+
+
+if __name__ == "__main__":
+    battle()
 
