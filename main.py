@@ -18,6 +18,35 @@ from base import session
 #     else :
 #         print(f"Invalid credentials")
 
+
+type_effects = {
+    "Fire":     {"Ice": 2.0, "Grass": 2.0, "Water": 0.5, "Rock": 0.5},
+    "Water":    {"Fire": 2.0, "Rock": 2.0, "Grass": 0.5, "Electric": 0.5},
+    "Grass":    {"Water": 2.0, "Soil": 2.0, "Fire": 0.5, "Ice": 0.5},
+    "Ice":      {"Grass": 2.0, "Soil": 2.0, "Fire": 0.5, "Rock": 0.5},
+    "Electric": {"Water": 2.0, "Ice": 2.0, "Soil": 0.5, "Grass": 0.5},
+    "Soil":     {"Electric": 2.0, "Fire": 2.0, "Ice": 0.5, "Grass": 0.5, "Water": 0.5},
+    "Normal":   {"Any": 1.0},
+    "defend":    {"Fire": 0.7, "Water": 0.5, "Soil": 0.5, "Ice": 0.9, "Electric": 0.9,"Grass": 0.7}
+}
+
+
+attack_type = {
+    "1": {"name": "Fire Blast", "type": "Fire", "base_damage": 20},
+    "2": {"name": "Tackle", "type": "Normal", "base_damage": 15},
+    "3": {"name": "Defend", "type": "defend", "base_damage":1.0},
+    "4": {"name": "Thunderbolt", "type": "Electric", "base_damage": 23},
+    "5": {"name": "Aqua Surge", "type": "Water", "base_damage": 17},
+    "6": {"name": "Earthquake", "type": "Soil", "base_damage": 25},
+    "7": {"name": "Frostbite", "type": "Ice", "base_damage": 21}
+}
+
+def calculate_damage(attack_type,defender_type,base_damage):
+    damage =type_effects.get(attack_type, {}).get(defender_type, 1.0)
+    final_damage = damage * base_damage
+    return int(final_damage)
+
+
 def get_player(name):
     return session.query(Player).filter_by(name=name).first()
 
@@ -25,21 +54,10 @@ def get_teams(player):
     teams = session.query(Team).filter_by(player_id=player.id).all()
     return set(team.monster.monster for team in teams)  
 
-def attacks():
-    print(f"1. Fire Blast (Strong vs Rock!)")
-    print(f"2. Tackle (Normal damage)")  
-    print(f"3. Defend (Reduce incoming damage)")
-    print(f"4. Use Item")
-
-def items():
-    print(f"1. Thunderbolt (Strong vs Water!)")
-    print(f"2. Aqua Surge (Strong vs Soil!)")
-    print(f"3. Earthquake (Strong vs Electric!)")
-    print(f"4. Frostbite (Strong vs Air!)")
 
 def battle():
     print(f"⚔️  BATTLE ARENA ⚔️")
-    
+
     # Get player names
     player1 = input("Enter player1: ")
     player2 = input("Enter player2: ")
@@ -69,72 +87,64 @@ def battle():
     if p2_team not in team2:
         raise ValueError("Invalid monster selection for Player 2.")
 
-    # Battle starts
+    p1_monster = session.query(Monster).filter_by(monster=p1_team).first()
+    p2_monster = session.query(Monster).filter_by(monster=p2_team).first()
+
+    print(f"\n🛎️  Final Battle Recap 🥊")
+    print(f"{val_p1.name} VS {val_p2.name}")
+    print(f"{p1_team} VS {p2_team}")
+
     print(f"\nWelcome to the arena!")
     print(f"{p1_team} enters the arena!")
     print(f"{p2_team} enters the arena!\n")
 
-    # Player 1 attack
+    print(f"======= Player 1 Turn =======")
     print(f"\nWhat will {p1_team} do?")
-    attacks()
-    pick = input("Choose an attack (1-4): ")
-    
-    if pick == "1":
-        print(f"{p1_team} used Fire Blast! 🔥")
-    elif pick == "2":
-        print(f"{p1_team} used Tackle! 💥")
-    elif pick == "3":
-        print(f"{p1_team} used Defend! 🛡️")
-    elif pick == "4":
-        items()
-        pick2 = input("Choose a special item attack (1-4): ")
-        if pick2 == "1":
-            print(f"{p1_team} used Thunderbolt! ⚡ (Strong vs Water!)")
-        elif pick2 == "2":
-            print(f"{p1_team} used Aqua Surge! 💧 (Strong vs Soil!)")
-        elif pick2 == "3":
-            print(f"{p1_team} used Earthquake! 🌍 (Strong vs Electric!)")
-        elif pick2 == "4":
-            print(f"{p1_team} used Frostbite! ❄️ (Strong vs Air!)")
-        else:
-            print("Invalid special attack.")
-    else:
+    for key, atk in attack_type.items():
+        print(f"{key}: {atk['name']} ({atk['type']})")
+
+    attack1_choice = input("Choose an attack (1-7): ")
+    attack1 = attack_type.get(attack1_choice)
+    if not attack1:
         print("Invalid attack choice.")
+        return
+    print(f"{p1_team} used {attack1['name']}! {attack1['type']}")
 
-
-    # Player 2 attack
+    print(f"======= Player 2 Turn =======")
     print(f"\nWhat will {p2_team} do?")
-    attacks()
-    pick = input("Choose an attack (1-4): ")
-    
-    if pick == "1":
-        print(f"{p2_team} used Fire Blast! 🔥")
-    elif pick == "2":
-        print(f"{p2_team} used Tackle! 💥")
-    elif pick == "3":
-        print(f"{p2_team} used Defend! 🛡️")
-    elif pick == "4":
-        items()
-        pick2 = input("Choose a special item attack (1-4): ")
-        if pick2 == "1":
-            print(f"{p2_team} used Thunderbolt! ⚡ (Strong vs Water!)")
-        elif pick2 == "2":
-            print(f"{p2_team} used Aqua Surge! 💧 (Strong vs Soil!)")
-        elif pick2 == "3":
-            print(f"{p2_team} used Earthquake! 🌍 (Strong vs Electric!)")
-        elif pick2 == "4":
-            print(f"{p2_team} used Frostbite! ❄️ (Strong vs Air!)")
-        else:
-            print("Invalid special attack.")
-    else:
-        print("Invalid attack choice.")
+    for key, atk in attack_type.items():
+        print(f"{key}: {atk['name']} ({atk['type']})")
 
-    # Final Summary
-    print(f"\n🛎️  Final Battle Recap 🥊")
-    print(f"{val_p1.name} VS {val_p2.name}")
-    print(f"{p1_team} VS {p2_team}")
-    print("Battle completed (damage calculations not yet implemented).")
-    # based on level increment [per win] and points deductions 
+    attack2_choice = input("Choose an attack (1-7): ")
+    attack2 = attack_type.get(attack2_choice)
+    if not attack2:
+        print("Invalid attack choice.")
+        return
+    print(f"{p2_team} used {attack2['name']}! {attack2['type']}")
+
+    print("\n====== DAMAGES======")
+
+    dmg_to_p2 = calculate_damage(attack1['type'], p2_monster.type, attack1['base_damage'])
+    dmg_to_p1 = calculate_damage(attack2['type'], p1_monster.type, attack2['base_damage'])
+
+    print(f"{p2_team} takes {dmg_to_p2} damage")
+    print(f"{p1_team} takes {dmg_to_p1} damage")
+
+    p2_monster.points -= dmg_to_p2
+    p1_monster.points -= dmg_to_p1
+
+    if p2_monster.points <= 0 and p1_monster.points <= 0:
+        print("It's a draw! Both monsters fainted.")
+    elif p2_monster.points <= 0:
+        print(f"{p1_team} wins!")
+    elif p1_monster.points <= 0:
+        print(f"{p2_team} wins!")
+    else:
+        print(f"{p1_team} has points {p1_monster.points}")
+        print(f"{p2_team} has points {p2_monster.points}")
+
+    session.commit()
+    print("Battle data committed.")
 
 
 if __name__ == "__main__":
