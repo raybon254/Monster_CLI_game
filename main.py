@@ -1,13 +1,13 @@
-from sign_in import User
-from player import Player
-from monster import Monster
-from monster_team import Team
-from trade import Trade
+from models.sign_in import User
+from models.player import Player
+from models.monster import Monster
+from models.monster_team import Team
+from models.trade import Trade
 from trades.offer import offer
 from trades.purchase import purchase
-from base import session
+from models.base import session
 
-# utility qurey user
+# utility query user
 # def get_user(name,nick_name):
 #     return session.query(User).filter_by(name=name, nick_name=nick_name).first()
 
@@ -64,6 +64,8 @@ def get_teams(player):
 
 
 def battle():
+
+    
     print(f"⚔️  BATTLE ARENA ⚔️")
 
     # Get player names

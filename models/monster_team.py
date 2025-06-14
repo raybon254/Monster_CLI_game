@@ -8,6 +8,8 @@ class Team(Base):
     id = Column(Integer(), primary_key = True)
     player_id = Column(Integer(),ForeignKey("players.id"), nullable=False )
     monster_id = Column(Integer(),ForeignKey("monsters.id"), nullable=False )
+    # level
+    # experience
 
     player = relationship("Player" , back_populates="teams")
     monster = relationship("Monster" , back_populates="teams")

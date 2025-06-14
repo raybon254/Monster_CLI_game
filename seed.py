@@ -1,9 +1,9 @@
 from faker import Faker
-from sign_in import User
-from player import Player
-from monster import Monster
-from monster_team import Team
-from base import drop_table, create_table,session
+from models.sign_in import User
+from models.player import Player
+from models.monster import Monster
+from models.monster_team import Team
+from models.base import drop_table, create_table,session
 import random
 import string
 

@@ -1,6 +1,6 @@
-from player import Player
-from session import SessionManager
-from base import session
+from models.player import Player
+from models.session import SessionManager
+from models.base import session
 
 def level_achievement():
     # check players level and validate if its greater than 5 if so award 250 points
