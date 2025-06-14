@@ -10,6 +10,7 @@ from sign_in import User
 from player import Player
 from monster import Monster
 from monster_team import Team
+from trade import Trade
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

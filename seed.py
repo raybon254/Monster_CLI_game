@@ -31,7 +31,8 @@ def seed_data():
     for _ in range(5):
         player = Player(
             name = fake.name(),
-            level = 1
+            level = 1,
+            points = 200
         )
         session.add(player)
         players.append(player)

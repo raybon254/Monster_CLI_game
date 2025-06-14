@@ -2,6 +2,9 @@ from sign_in import User
 from player import Player
 from monster import Monster
 from monster_team import Team
+from trade import Trade
+from trades.offer import offer
+from trades.purchase import purchase
 from base import session
 
 # utility qurey user
@@ -40,6 +43,11 @@ attack_type = {
     "6": {"name": "Earthquake", "type": "Soil", "base_damage": 25},
     "7": {"name": "Frostbite", "type": "Ice", "base_damage": 21}
 }
+
+
+
+
+
 
 def calculate_damage(attack_type,defender_type,base_damage):
     damage =type_effects.get(attack_type, {}).get(defender_type, 1.0)
@@ -146,7 +154,22 @@ def battle():
     session.commit()
     print("Battle data committed.")
 
+# Trade in's
+
+def trade():
+    print(f"====== Welcome to the Trade in sector ======")
+    print(f"1: Offer a monster.")
+    print(f"2: Purchase  a monster.")
+    trade = input("Choose a service:")
+
+    if trade == "1":
+        offer()
+         
+    if trade == "2":
+        purchase()
+
 
 if __name__ == "__main__":
-    battle()
+    # battle()
+    trade()
 
