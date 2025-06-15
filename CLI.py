@@ -2,7 +2,9 @@ from models.base import session
 from CRUD.players_crud import add_player, view_player, update_player, delete_player
 from CRUD.monsters_crud import add_monsters, view_monsters, update_monsters, delete_monsters
 from CRUD.mon_teams_crud import add_mon_teams, view_mon_teams, delete_mon_teams
-from CRUD.battle_record import view_battle_history
+from CRUD.battle_record import view_all_history,view_player_history
+from main import battle
+from trades import offer,purchase
 from models.session import SessionManager
 
 # User session implementation
@@ -20,7 +22,8 @@ def main_menu():
        print("1. Player Operations")
        print("2. Monster Operations")
        print("3. Monster Team Operations")
-       print("4. View Battle History")
+       print("4. Battle Field")
+       print("5. Trade Monsters")
        print("0. Exit")
        choice = input("Select an option: ").strip()
 
@@ -32,8 +35,9 @@ def main_menu():
        elif choice == '3':
            team_menu()
        elif choice == '4':
-           player_id = int(input("Enter player ID to view battle history: "))
-           view_battle_history(player_id)
+           battle_field()
+       elif choice == '4':
+           trade_monster()
        elif choice == '0':
            print("Goodbye!")
            break
@@ -107,6 +111,43 @@ def team_menu():
            view_mon_teams()
        elif choice == '3':
            delete_mon_teams()
+       elif choice == '0':
+           break
+       else:
+           print("Invalid choice.")
+
+def battle_field():
+    while True:
+       print("\n⚔️ Battle Field ⚔️")
+       print("1. Enter Battle field")
+       print("2. View Battle History")
+       print("3. View Player History")
+       print("0. Back to Main Menu")
+       choice = input("Select an option: ").strip()
+
+       if choice == '1':
+           battle()
+       elif choice == '2':
+           view_all_history()
+       elif choice == '3':
+           view_player_history()
+       elif choice == '0':
+           break
+       else:
+           print("Invalid choice.")
+
+def trade_monster():
+    while True:
+       print("\n⚔️ Trade monster ⚔️")
+       print("1. Offer/Sell Monster")
+       print("2. Buy/Purchase Monster")
+       print("0. Back to Main Menu")
+       choice = input("Select an option: ").strip()
+
+       if choice == '1':
+           offer()
+       elif choice == '2':
+           purchase()
        elif choice == '0':
            break
        else:
