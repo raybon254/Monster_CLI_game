@@ -21,8 +21,8 @@ def view_monsters():
     pass
 # Update
 def update_monsters():
-    mid = int(input("Enter Monster ID: "))
-    monster = session.query(Monster).filter_by(id=mid).first()
+    mid = int(input("Enter Monster Name: "))
+    monster = session.query(Monster).filter_by(monster=mid).first()
     if not monster:
         print("Monster not found.")
         return
@@ -34,7 +34,7 @@ def update_monsters():
     pass
 # Delete
 def delete_monsters():
-    mid = int(input("Enter Monster ID: "))
+    mid = int(input("Enter Monster Name: "))
     monster = session.query(Monster).filter_by(id=mid).first()
     if monster:
         session.delete(monster)

@@ -16,7 +16,11 @@ class Player(Base):
     money = Column(Integer(), default=1000)   
     date = Column(DateTime, default=func.now())
 
-    # Team relationship
+    #relationship
+    from models.monster_team import Team 
+    from models.monster import Monster
+    from models.trade import Trade
+    from models.battles import BattleHistory
     teams = relationship("Team", back_populates="player", cascade="all, delete-orphan")
     trades_offered = relationship('Trade', foreign_keys='Trade.offer_by', back_populates='offer_player')
     trades_requested = relationship('Trade', foreign_keys='Trade.requested_by', back_populates='request_player')

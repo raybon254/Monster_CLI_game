@@ -1,5 +1,5 @@
-from player import Player
-from base import session
+from models.player import Player
+from models.base import session
 
 class SessionManager:
     def __init__(self):

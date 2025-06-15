@@ -4,9 +4,9 @@ from models.monster_team import Team
 
 # Add
 def add_mon_teams():
-    player_id = int(input("Player ID: "))
-    monster_id = int(input("Monster ID: "))
-    team = Team(player_id=player_id, monster_id=monster_id)
+    player_name = int(input("Player Name: "))
+    monster_name = int(input("Monster Name: "))
+    team = Team(player_id=player_name.id, monster_id=monster_name.id)
     session.add(team)
     session.commit()
     print("Team entry added.")
@@ -26,3 +26,9 @@ def delete_mon_teams():
         session.commit()
         print("Team entry deleted.")
     pass
+
+if __name__ == "__main__":
+    add_mon_teams()
+    # view_mon_teams()
+    # update_mon_teams()
+    # delete_mon_teams()

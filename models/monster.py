@@ -11,7 +11,6 @@ class Monster(Base):
     points  = Column(Integer())
     type = Column(String)
 
-    teams = relationship("Team" , back_populates="monster")
     
 
 

@@ -1,9 +1,7 @@
-# CRUD operation
-
-import random, string, re
 from models.player import Player
 from sqlalchemy.exc import IntegrityError
 from models.base import session  
+import random, string, re
 
 # Add
 def add_player():
@@ -46,8 +44,8 @@ def view_player():
 
 # Update
 def update_player():
-    player_id = input("Enter the ID of the player to update: ").strip()
-    player = session.query(Player).filter_by(id=player_id).first()
+    player_name = input("Enter the Name of the player to update: ").strip()
+    player = session.query(Player).filter_by(name=player_name).first()
 
     if not player:
         print("Player not found.")
@@ -71,15 +69,15 @@ def update_player():
 
     try:
         session.commit()
-        print(f"Player ID {player_id} updated successfully.")
+        print(f"Player  {player_name} updated successfully.")
     except IntegrityError:
         session.rollback()
         print("Email already exists.")
 
 # Delete
 def delete_player():
-    player_id = input("Enter the ID of the player to delete: ").strip()
-    player = session.query(Player).filter_by(id=player_id).first()
+    player_name = input("Enter the Name of the player to delete: ").strip()
+    player = session.query(Player).filter_by(name = player_name).first()
 
     if not player:
         print("❌ Player not found.")
@@ -92,3 +90,9 @@ def delete_player():
         print(f"Player '{player.name}' deleted.")
     else:
         print("Cancelled.")
+
+if __name__ == "__main__":
+    # add_player()
+    # view_player()
+    # update_player()
+    delete_player()

@@ -1,4 +1,5 @@
 from models.player import Player
+from models.session import SessionManager
 from models.monster import Monster
 from models.monster_team import Team
 from models.trade import Trade
@@ -193,6 +194,7 @@ def trade():
 
 
 if __name__ == "__main__":
+    SessionManager.get_current_player()
     battle()
     # trade()
 
