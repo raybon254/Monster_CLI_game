@@ -9,6 +9,7 @@ from models.base import Base
 from models.player import Player
 from models.monster import Monster
 from models.monster_team import Team
+from models.battles import BattleHistory
 from models.trade import Trade
 
 # this is the Alembic Config object, which provides

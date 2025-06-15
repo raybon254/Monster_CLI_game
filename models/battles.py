@@ -1,6 +1,5 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, func
 from sqlalchemy.orm import relationship
-from datetime import datetime
 from .base import Base
 
 class BattleHistory(Base):
@@ -12,6 +11,6 @@ class BattleHistory(Base):
     winner_id = Column(Integer, ForeignKey("players.id"))
     timestamp = Column(DateTime, default=func.now())
 
-    attacker = relationship("Player", foreign_keys=[attacker_id], back_populates="battles_as_attacker")
-    defender = relationship("Player", foreign_keys=[defender_id], back_populates="battles_as_defender")
-    winner = relationship("Player", foreign_keys=[winner_id])
+    attacker = relationship('Player', foreign_keys=[attacker_id], back_populates='battles_as_attacker')
+    defender = relationship('Player', foreign_keys=[defender_id], back_populates='battles_as_defender')
+    winner = relationship('Player', foreign_keys=[winner_id], back_populates='battles_won')

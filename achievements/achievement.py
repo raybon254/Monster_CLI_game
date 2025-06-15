@@ -1,5 +1,3 @@
-from models.player import Player
-from models.session import SessionManager
 from models.base import session
 
 def level_achievement(player):

@@ -9,11 +9,9 @@ class Monster(Base):
     monster  = Column(VARCHAR())
     level  = Column(Integer())
     points  = Column(Integer())
-    # type monster
-    # basestats
-    # rarity
-    # abilities
+    type = Column(String)
 
     teams = relationship("Team" , back_populates="monster")
+    
 
 

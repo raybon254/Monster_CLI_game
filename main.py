@@ -10,8 +10,6 @@ from models.base import session
 
 # kick start session for every function called.
 # utility query user
-# def get_user(name,nick_name):
-#     return session.query(User).filter_by(name=name, nick_name=nick_name).first()
 
 
 
@@ -169,8 +167,7 @@ def battle():
     battle_record = BattleHistory(
         attacker_id=val_p1.id,
         defender_id=val_p2.id,
-        winner_id=winner.id if winner else None,
-        damage_dealt=damage_dealt
+        winner_id=winner.id if winner else None
     )
     session.add(battle_record)
     session.commit()
@@ -196,6 +193,14 @@ def trade():
 
 
 if __name__ == "__main__":
-    # battle()
-    trade()
+    battle()
+    # trade()
+
+# CRUD operation
+# battle
+# mon_teams
+# monsters_crud
+# players_Crud
+
+
 

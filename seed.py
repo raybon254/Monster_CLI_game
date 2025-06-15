@@ -2,6 +2,8 @@ from faker import Faker
 from models.player import Player
 from models.monster import Monster
 from models.monster_team import Team
+from models.trade import Trade
+from models.battles import BattleHistory
 from models.base import drop_table, create_table,session
 import random
 import string
@@ -10,6 +12,17 @@ def seed_data():
     print(f"Seeding Data...!")
     drop_table()
     create_table()
+
+    monster_pool = [
+        {"name": "Flamewyrm", "type": "fire"},
+        {"name": "Aquafin", "type": "water"},
+        {"name": "Vinewhip", "type": "grass"},
+        {"name": "Sparkbolt", "type": "electric"},
+        {"name": "Rockgrinder", "type": "rock"},
+        {"name": "Gusthawk", "type": "flying"},
+        {"name": "Noxshade", "type": "dark"},
+    ]
+
 
     fake = Faker()   
 
@@ -28,16 +41,18 @@ def seed_data():
         session.commit()    
 
     monsters = []
+
     for _ in range(10):
-        monst = ["flamewyrm","Aquafin","Vinewhip","Sparkbolt","Rockgrinder","Gusthawk","Noxshade"]
+        choice = random.choice(monster_pool)
         monster = Monster(
-            monster = random.choice(monst),
-            level = 1,
-            points = 50
+            monster=choice["name"],
+            type=choice["type"],
+            level=1,
+            points=50
         )
         session.add(monster)
-        monsters.append(monster)
-        session.commit()    
+        monsters.append(monster)  
+        session.commit()
 
     teams = []
     for _ in range(10):
