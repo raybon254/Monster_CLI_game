@@ -1,9 +1,5 @@
 from faker import Faker
-from models.player import Player
-from models.monster import Monster
-from models.monster_team import Team
-from models.trade import Trade
-from models.battles import BattleHistory
+from models import *
 from models.base import drop_table, create_table,session
 import random
 import string
@@ -46,7 +42,7 @@ def seed_data():
         choice = random.choice(monster_pool)
         monster = Monster(
             monster=choice["name"],
-            type=choice["type"],
+            type_power=choice["type"],
             level=1,
             points=50
         )

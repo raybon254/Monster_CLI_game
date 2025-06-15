@@ -91,8 +91,8 @@ def delete_player():
     else:
         print("Cancelled.")
 
-if __name__ == "__main__":
-    # add_player()
-    # view_player()
-    # update_player()
-    delete_player()
+# if __name__ == "__main__":
+#     # add_player()
+#     # view_player()
+#     # update_player()
+#     delete_player()

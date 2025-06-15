@@ -7,10 +7,11 @@ class Monster(Base):
 
     id = Column(Integer(), primary_key = True)
     monster  = Column(VARCHAR())
-    level  = Column(Integer())
-    points  = Column(Integer())
-    type = Column(String)
+    level  = Column(Integer(), default=1)
+    points  = Column(Integer(), default=50)
+    type_power = Column(String())
 
-    
+    teams = relationship("Team", back_populates="monster")
+    trades = relationship("Trade", back_populates="monster")
 
 

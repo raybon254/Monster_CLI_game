@@ -1,24 +1,34 @@
 from models.monster import Monster
 from models.base import session  
+import random
 # CRUD operation
 
 # Add
 def add_monsters():
+    monster_pool = [
+        {"name": "Flamewyrm", "type": "fire"},
+        {"name": "Aquafin", "type": "water"},
+        {"name": "Vinewhip", "type": "grass"},
+        {"name": "Sparkbolt", "type": "electric"},
+        {"name": "Rockgrinder", "type": "rock"},
+        {"name": "Gusthawk", "type": "flying"},
+        {"name": "Noxshade", "type": "dark"},
+    ]
     name = input("Monster Name: ")
-    level = int(input("Level: "))
-    points = int(input("Points: "))
-    monster = Monster(monster=name, level=level, points=points)
+    mon_type = random.choice(monster_pool)
+    type_power = mon_type["type"]
+    monster = Monster(monster=name, type_power=type_power)
     session.add(monster)
     session.commit()
     print(f"Monster '{name}' added.")
-    pass
+    
 # View
 def view_monsters():
     monsters = session.query(Monster).all()
     for m in monsters:
         print(f"{m.id} || {m.monster} || Lvl: {m.level} || Points: {m.points}")
 
-    pass
+    
 # Update
 def update_monsters():
     mid = int(input("Enter Monster Name: "))
@@ -31,13 +41,21 @@ def update_monsters():
     monster.points = int(input(f"Points ({monster.points}): ") or monster.points)
     session.commit()
     print("Monster updated.")
-    pass
+    
 # Delete
 def delete_monsters():
-    mid = int(input("Enter Monster Name: "))
-    monster = session.query(Monster).filter_by(id=mid).first()
+    name = input("Enter Monster Name: ")
+    monster = session.query(Monster).filter_by(monster=name).first()
     if monster:
         session.delete(monster)
         session.commit()
         print("Monster deleted.")
-    pass
+    else:
+        print("Monster not found.")
+
+# if __name__ == "__main__":
+#     add_monsters()
+#     # view_monsters()
+#     # update_monsters()
+#     # delete_monsters()
+    

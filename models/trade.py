@@ -11,7 +11,6 @@ class Trade(Base):
     requested_by = Column(Integer, ForeignKey('players.id'), nullable=True)
     status = Column(String, default='open') 
 
-    monster = relationship('Monster')
-
+    monster = relationship('Monster', back_populates='trades')
     offer_player = relationship('Player', foreign_keys=[offer_by], back_populates='trades_offered')
     request_player = relationship('Player', foreign_keys=[requested_by], back_populates='trades_requested')

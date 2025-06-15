@@ -10,8 +10,6 @@ class Team(Base):
     monster_id = Column(Integer(),ForeignKey("monsters.id"), nullable=False )
 
     # Relationship 
-    from models.player import Player
-
     player = relationship("Player" , back_populates="teams")
     monster = relationship("Monster" , back_populates="teams")
 
