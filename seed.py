@@ -1,5 +1,4 @@
 from faker import Faker
-from models.sign_in import User
 from models.player import Player
 from models.monster import Monster
 from models.monster_team import Team
@@ -12,27 +11,17 @@ def seed_data():
     drop_table()
     create_table()
 
-    fake = Faker()
-
-    Signin = []
-    for _ in range(10):
-        gender = random.choice(["male", "female"])
-        nickname = f"{random.choice(string.ascii_uppercase)}{random.randint(1,100)}"
-        create_user = User(
-            name = fake.name(),
-            email = fake.email(),
-            gender = gender,
-            nick_name = nickname
-        )
-        session.add(create_user)
-        session.commit()    
+    fake = Faker()   
 
     players = []
     for _ in range(5):
+        gender = random.choice(["male", "female"])
+        nickname = f"{random.choice(string.ascii_uppercase)}{random.randint(1,100)}"
         player = Player(
             name = fake.name(),
-            level = 1,
-            points = 200
+            nick_name = nickname,
+            email = fake.email(),
+            gender = gender
         )
         session.add(player)
         players.append(player)

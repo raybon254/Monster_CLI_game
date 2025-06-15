@@ -2,17 +2,17 @@ from models.player import Player
 from models.session import SessionManager
 from models.base import session
 
-def level_achievement():
+def level_achievement(player):
     # check players level and validate if its greater than 5 if so award 250 points
     # check players level and validate if its greater than 10 if so award 500 points
     # check players level and validate if its greater than 15 if so award 750 points
     # check players level and validate if its greater than 20 if so award 1050 points
 
-    # From login (current user)- player
-    player = SessionManager.get_current_player()
-    if not player:
-        print("No player logged in.")
-        return
+    # From login (current user)- player  ** not supposed to be here initilaized when battling
+    # player = SessionManager.get_current_player()
+    # if not player:
+    #     print("No player logged in.")
+    #     return
 
     awarded = False
 

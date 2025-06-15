@@ -5,12 +5,11 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from base import Base
-from sign_in import User
-from player import Player
-from monster import Monster
-from monster_team import Team
-from trade import Trade
+from models.base import Base
+from models.player import Player
+from models.monster import Monster
+from models.monster_team import Team
+from models.trade import Trade
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

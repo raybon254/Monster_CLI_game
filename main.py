@@ -1,25 +1,19 @@
-from models.sign_in import User
 from models.player import Player
 from models.monster import Monster
 from models.monster_team import Team
 from models.trade import Trade
 from trades.offer import offer
 from trades.purchase import purchase
+from models.battles import BattleHistory
+from achievements.achievement import level_achievement
 from models.base import session
 
+# kick start session for every function called.
 # utility query user
 # def get_user(name,nick_name):
 #     return session.query(User).filter_by(name=name, nick_name=nick_name).first()
 
-# def login():
-#     name = input("Enter your Name:")
-#     nick_name = input("Enter your nickname:")
 
-#     res = get_user(name,nick_name)
-#     if res:
-#         print(f"Successfully logged in!")
-#     else :
-#         print(f"Invalid credentials")
 
 
 type_effects = {
@@ -38,7 +32,7 @@ attack_type = {
     "1": {"name": "Fire Blast", "type": "Fire", "base_damage": 20},
     "2": {"name": "Tackle", "type": "Normal", "base_damage": 15},
     "3": {"name": "Defend", "type": "defend", "base_damage":1.0},
-    "4": {"name": "Thunderbolt", "type": "Electric", "base_damage": 23},
+    "4": {"name":  "Thunderbolt", "type": "Electric", "base_damage": 23},
     "5": {"name": "Aqua Surge", "type": "Water", "base_damage": 17},
     "6": {"name": "Earthquake", "type": "Soil", "base_damage": 25},
     "7": {"name": "Frostbite", "type": "Ice", "base_damage": 21}
@@ -143,18 +137,48 @@ def battle():
     p2_monster.points -= dmg_to_p2
     p1_monster.points -= dmg_to_p1
 
+    winner = None
+    damage_dealt = dmg_to_p2 + dmg_to_p1
+
     if p2_monster.points <= 0 and p1_monster.points <= 0:
         print("It's a draw! Both monsters fainted.")
     elif p2_monster.points <= 0:
         print(f"{p1_team} wins!")
+        val_p1.level += 1
+        val_p1.experience += 50
+        val_p1.money += 200
+        winner = val_p1
+        level_achievement(val_p1)
+
     elif p1_monster.points <= 0:
         print(f"{p2_team} wins!")
+        val_p2.level += 1
+        val_p2.experience += 50
+        val_p2.money += 200
+        winner = val_p2
+        level_achievement(val_p2)
+
+
     else:
         print(f"{p1_team} has points {p1_monster.points}")
         print(f"{p2_team} has points {p2_monster.points}")
 
     session.commit()
+
+    
+    battle_record = BattleHistory(
+        attacker_id=val_p1.id,
+        defender_id=val_p2.id,
+        winner_id=winner.id if winner else None,
+        damage_dealt=damage_dealt
+    )
+    session.add(battle_record)
+    session.commit()
+
     print("Battle data committed.")
+
+
+
 
 # Trade in's
 

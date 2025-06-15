@@ -1,7 +1,7 @@
-from player import Player
-from monster_team import Team
-from trade import Trade
-from base import session
+from models.player import Player
+from models.monster_team import Team
+from models.trade import Trade
+from models.base import session
 
 def purchase():
     buyer_name = input("Enter your name: ")
