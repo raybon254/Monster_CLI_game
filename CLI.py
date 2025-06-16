@@ -4,7 +4,8 @@ from CRUD.monsters_crud import add_monsters, view_monsters, update_monsters, del
 from CRUD.mon_teams_crud import add_mon_teams, view_mon_teams, delete_mon_teams
 from CRUD.battle_record import view_all_history,view_player_history
 from main import battle
-from trades import offer,purchase
+from trades.offer import offer
+from trades.purchase import purchase
 from models.session import SessionManager
 
 # User session implementation
@@ -36,7 +37,7 @@ def main_menu():
            team_menu()
        elif choice == '4':
            battle_field()
-       elif choice == '4':
+       elif choice == '5':
            trade_monster()
        elif choice == '0':
            print("Goodbye!")

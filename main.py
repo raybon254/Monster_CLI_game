@@ -127,8 +127,8 @@ def battle():
 
     print("\n====== DAMAGES======")
 
-    dmg_to_p2 = calculate_damage(attack1['type'], p2_monster.type, attack1['base_damage'])
-    dmg_to_p1 = calculate_damage(attack2['type'], p1_monster.type, attack2['base_damage'])
+    dmg_to_p2 = calculate_damage(attack1['type'], p2_monster.type_power, attack1['base_damage'])
+    dmg_to_p1 = calculate_damage(attack2['type'], p1_monster.type_power, attack2['base_damage'])
 
     print(f"{p2_team} takes {dmg_to_p2} damage")
     print(f"{p1_team} takes {dmg_to_p1} damage")
@@ -143,6 +143,8 @@ def battle():
         print("It's a draw! Both monsters fainted.")
     elif p2_monster.points <= 0:
         print(f"{p1_team} wins!")
+        p2_monster.points = 50
+        p1_monster.level += 1
         val_p1.level += 1
         val_p1.experience += 50
         val_p1.money += 200
@@ -151,6 +153,8 @@ def battle():
 
     elif p1_monster.points <= 0:
         print(f"{p2_team} wins!")
+        p1_monster.points = 50
+        p2_monster.level += 1
         val_p2.level += 1
         val_p2.experience += 50
         val_p2.money += 200

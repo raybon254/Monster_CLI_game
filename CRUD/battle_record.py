@@ -15,14 +15,24 @@ def view_player_history():
     if not battles:
         print(f"No battle history found for player ID {player_id}.")
         return
-
+    
     for b in battles:
-        print(f"{b.timestamp} - {b.attacker.name} vs {b.defender.name} -> Winner: {b.winner.name}")
+    
+        attacker_name = b.attacker.name if b.attacker else "Unknown"
+        defender_name = b.defender.name if b.defender else "Unknown"
+        winner_name = b.winner.name if b.winner else "Unknown(pending...)"
+
+        print(f"{b.timestamp} - {attacker_name} vs {defender_name} -> Winner: {winner_name}")
 
 def view_all_history():
     history = session.query(BattleHistory).all()
     for h in history:
-        print(f"{h.timestamp} - {h.attacker.name} vs {h.defender.name} -> Winner: {h.winner.name}")
+
+        attacker_name = h.attacker.name if h.attacker else "Unknown"
+        defender_name = h.defender.name if h.defender else "Unknown"
+        winner_name = h.winner.name if h.winner else "Uknown(pending...)"
+
+        print(f"{h.timestamp} - {attacker_name} vs {defender_name} -> Winner: {winner_name}")
 
     if not history:
         print("No battle records found in the system.")
